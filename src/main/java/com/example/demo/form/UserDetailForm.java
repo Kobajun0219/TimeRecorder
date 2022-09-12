@@ -15,6 +15,6 @@ public class UserDetailForm {
 	private Date birthday;
 	private Integer age;
 	private Integer gender;
-//	private Department department;
-//	private List<Salary> salaryList;
+	private Department department;
+	private List<Salary> salaryList;
 }

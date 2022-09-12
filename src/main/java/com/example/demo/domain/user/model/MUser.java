@@ -2,7 +2,7 @@ package com.example.demo.domain.user.model;
 
 //import java.text.SimpleDateFormat;
 import java.util.Date;
-//import java.util.List;	
+import java.util.List;
 
 //import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToOne;
@@ -14,9 +14,9 @@ import java.util.Date;
 
 import lombok.Data;
 
-@Data
 //@Entity
 //@Table(name ="m_user")
+@Data
 public class MUser {
 //	@Id
 	private String userId;
@@ -27,7 +27,8 @@ public class MUser {
 	private Integer gender;
 	private Integer departmentId;
 	private String role;
-	
+	private Department department;
+	private List<Salary> salaryList;
 //	@ManyToOne(optional = true)
 //	@JoinColumn(insertable = false,updatable = false, name = "departmentId")
 //	private Department department;

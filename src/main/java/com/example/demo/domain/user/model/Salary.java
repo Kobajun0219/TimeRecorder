@@ -9,14 +9,13 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
+//@Entity
+//@Table(name ="t_salary")
 @Data
-@Entity
-@Table(name ="t_salary")
 public class Salary {
-//	private String userId;
-//	private String yearMonth;
-	@EmbeddedId
-	private SalaryKey salaryKey;
+	private String userId;
+	private String yearMonth;
+//	@EmbeddedId
+//	private SalaryKey salaryKey;
 	private Integer salary;
 }

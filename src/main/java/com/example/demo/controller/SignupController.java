@@ -81,35 +81,35 @@ public class SignupController {
 		return "redirect:/login";
 	}
 	
-//	/** データベース 関連 の 例外処理 */
-//	@ExceptionHandler(DataAccessException.class)
-//	public String dataAccessExceptionHandler(DataAccessException e, Model model){
-//		
-//		// 空文字 を セット
-//		model.addAttribute("error","");
-//		
-//		// メッセージ を Model に 登録
-//		model.addAttribute("message","SignupControllerで例外が発生しました"); 
-//		
-//		// HTTP の エラーコード（ 500） を Model に 登録
-//		model.addAttribute("status",HttpStatus.INTERNAL_SERVER_ERROR);
-//		
-//		return "error";
-//	}
-//	
-//	/** その他 の 例外処理 */
-//	@ExceptionHandler(Exception.class)
-//	public String exceptionHandler(Exception e, Model model) {
-//		
-//		// 空文字 を セット
-//		model.addAttribute("error","");
-//		
-//		// メッセージ を Model に 登録
-//		model.addAttribute("message","SignupControllerで例外が発生しました");
-//		
-//		// HTTP の エラーコード（ 500） を Model に 登録
-//		model.addAttribute("status",HttpStatus.INTERNAL_SERVER_ERROR);
-//		
-//		return "error";
-//	}
+	/** データベース 関連 の 例外処理 */
+	@ExceptionHandler(DataAccessException.class)
+	public String dataAccessExceptionHandler(DataAccessException e, Model model){
+		
+		// 空文字 を セット
+		model.addAttribute("error","");
+		
+		// メッセージ を Model に 登録
+		model.addAttribute("message","SignupControllerで例外が発生しました"); 
+		
+		// HTTP の エラーコード（ 500） を Model に 登録
+		model.addAttribute("status",HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return "error";
+	}
+	
+	/** その他 の 例外処理 */
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e, Model model) {
+		
+		// 空文字 を セット
+		model.addAttribute("error","");
+		
+		// メッセージ を Model に 登録
+		model.addAttribute("message","SignupControllerで例外が発生しました");
+		
+		// HTTP の エラーコード（ 500） を Model に 登録
+		model.addAttribute("status",HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return "error";
+	}
 }

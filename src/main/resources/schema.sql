@@ -1,3 +1,9 @@
+DROP TABLE t_salary;
+DROP TABLE employee;
+DROP TABLE m_user;
+DROP TABLE m_department;
+
+
 CREATE TABLE IF NOT EXISTS employee( 
 id VARCHAR(50) PRIMARY KEY, 
 name VARCHAR(50), 
@@ -22,3 +28,10 @@ CREATE TABLE IF NOT EXISTS m_department (
 	,department_name VARCHAR( 50)
 );
 
+/* 給料 テーブル */
+CREATE TABLE IF NOT EXISTS t_salary (
+	user_id VARCHAR(50)
+	,y_month VARCHAR(50)
+	,salary INT
+	,PRIMARY KEY(user_id, y_month)
+);

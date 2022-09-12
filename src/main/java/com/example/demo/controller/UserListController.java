@@ -44,6 +44,7 @@ public class UserListController {
 	private UserApplicationService appService;
 	
 	/** ユーザー 一覧 画面 を 表示 */
+	
 	@GetMapping("/list")
 	public String getUserList(@ ModelAttribute UserListForm form, Model model) {
 		
@@ -66,12 +67,8 @@ public class UserListController {
 		// form を MUser クラス に 変換
 		MUser user = modelMapper.map(form, MUser. class);
 		
-		log.info(user.toString());
-		
 		// ユーザー 検索
 		List<MUser>userList = userService.getUsers(user);
-		
-		log.info(userList.toString());
 		
 		// Model に 登録
 		model.addAttribute("userList",userList);
