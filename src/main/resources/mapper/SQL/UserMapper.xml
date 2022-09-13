@@ -10,6 +10,7 @@
 	<resultMap type="com.example.demo.domain.user.model.MUser"
 		id="user">
 		<id column="user_id" property="userId" />
+		<result column="id" property="id" />
 		<result column="password" property="password" />
 		<result column="user_name" property="userName" />
 		<result column="birthday" property="birthday" />
@@ -35,6 +36,13 @@
 		<id column="user_id" property="userId" />
 		<id column="y_month" property="yearMonth" />
 		<result column="salary" property="salary" />
+	</resultMap>
+
+	<!-- マッピング 定義(時間) -->
+	<resultMap type="com.example.demo.domain.user.model.WorkUser"
+		id="WorkUser">
+		<id column="user_name" property="userName"/>
+		<result column="start_time" property="startTime"/>
 	</resultMap>
 
 
@@ -82,7 +90,8 @@
 	<!-- ユーザー 1 件 検索 -->
 	<select id="findOne" resultMap="user">
 		select
-		m_user.user_id
+		id
+		,m_user.user_id
 		,m_user.password
 		,m_user.user_name
 		,m_user.birthday
@@ -111,8 +120,7 @@
 		m_user
 		set
 		password = #{password}
-		,user_name =
-		#{userName}
+		,user_name =#{userName}
 		where
 		user_id = #{userId}
 	</update>
@@ -133,5 +141,53 @@
 		m_user
 		where
 		user_id =#{userId}
+	</select>
+	
+	<!-- 出勤判定 -->
+	<select id="checkRecord" resultType="int">
+	SELECT EXISTS(SELECT * FROM user_time WHERE user_id = #{userId} AND work_flag = 1 );
+	</select>
+	
+	<!-- 出勤時間記録 -->
+	<select id="startRecord">
+		insert into user_time(
+		user_id
+		,start_time
+		,finish_time
+		,work_flag
+		)
+		values (
+		#{userId}
+		,#{nowDateTime}
+		,null
+		,1
+		)
+	</select>
+	
+	<!-- 退勤時間記録 -->
+	<update id="finishRecord">
+		update
+		user_time
+		set
+		 finish_time = #{nowDateTime}
+		,work_flag = 0
+		where
+		user_id = #{userId}
+		and
+		work_flag = 1
+	</update>
+
+	<!-- 出勤者を取得 -->
+	<select id="getworkers" resultType="WorkUser">
+		select
+		m_user.user_name
+		,start_time
+		from
+		user_time
+		left join m_user
+		on
+		user_time.user_id = m_user.id
+		where
+		work_flag =1
 	</select>
 </mapper>

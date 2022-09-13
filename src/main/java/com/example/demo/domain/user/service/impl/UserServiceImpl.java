@@ -1,14 +1,18 @@
 package com.example.demo.domain.user.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.user.model.MUser;
+import com.example.demo.domain.user.model.WorkUser;
 import com.example.demo.domain.user.service.UserService;
 import com.example.demo.repository.UserMapper;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -53,10 +57,10 @@ public class UserServiceImpl implements UserService{
 		
 		// パスワード 暗号化
 		String encryptPassword = encoder.encode(password);
-		mapper.updateOne(userId,password,userName);
+		mapper.updateOne(userId,encryptPassword,userName);
 		
 //		 例外 を 発生 さ せる
-		int i = 1/0;	
+//		int i = 1/0;	
 	}
 	
 	/** ユーザー 削除( 1 件) */
@@ -69,5 +73,29 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public MUser getLoginUser(String userId) {
 		return mapper.findLoginUser(userId);
+	}
+	
+	/** 出勤時間を記録 */
+	@Override
+	public void startRecord(String userId) {
+		int check = mapper.checkRecord(userId);
+		System.out.println(check);
+		if(check == 0) {
+			LocalDateTime nowDateTime = LocalDateTime.now();
+			mapper.startRecord(userId,nowDateTime);
+		}
+	}
+	
+	
+	@Override
+	public List <WorkUser>getworkers(){
+		return mapper.getworkers();
+	}
+	
+	/** 退勤時間を記録 */
+	@Override
+	public void finishRecord(String userId) {
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		mapper.finishRecord(userId,nowDateTime);
 	}
 }

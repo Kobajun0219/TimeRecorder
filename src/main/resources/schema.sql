@@ -2,6 +2,7 @@ DROP TABLE t_salary;
 DROP TABLE employee;
 DROP TABLE m_user;
 DROP TABLE m_department;
+DROP TABLE user_time;
 
 
 CREATE TABLE IF NOT EXISTS employee( 
@@ -12,7 +13,8 @@ age INT
 
 /* ユーザー マスタ */ 
 CREATE TABLE IF NOT EXISTS m_user (
-	user_id VARCHAR(50) PRIMARY KEY
+	 id int NOT NULL AUTO_INCREMENT PRIMARY KEY
+	,user_id VARCHAR(50) 
 	,password VARCHAR(100)
 	,user_name VARCHAR(50)
 	,birthday DATE
@@ -34,4 +36,12 @@ CREATE TABLE IF NOT EXISTS t_salary (
 	,y_month VARCHAR(50)
 	,salary INT
 	,PRIMARY KEY(user_id, y_month)
+);
+
+/*　時間テーブル */
+CREATE TABLE IF NOT EXISTS user_time (
+	 user_id VARCHAR(50)
+	,start_time DATETIME
+	,finish_time DATETIME 
+	,work_flag INT
 );

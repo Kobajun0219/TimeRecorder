@@ -44,6 +44,8 @@ public class UserDetailController {
 		// Model に 登録
 		model.addAttribute("userDetailForm", form);
 		
+		System.out.print(model);
+		
 		// ユーザー 詳細 画面 を 表示
 		return "user/detail";
 		

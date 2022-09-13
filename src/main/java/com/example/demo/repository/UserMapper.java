@@ -1,10 +1,12 @@
 package com.example.demo.repository;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.example.demo.domain.user.model.MUser;
+import com.example.demo.domain.user.model.WorkUser;
 
 @Mapper
 public interface UserMapper {
@@ -30,5 +32,19 @@ public interface UserMapper {
 	
 	/** ログイン ユーザー 取得 */
 	public MUser findLoginUser(String userId);
+	
+	/** 出勤を記録 */
+	public void startRecord(@Param("userId") String id,
+							@Param("nowDateTime") LocalDateTime nowDateTime);
+	
+	/** 出勤者を取得 */
+	public List<WorkUser>getworkers();
+	
+	/** 出勤を記録 */
+	public void finishRecord(@Param("userId") String id,
+							@Param("nowDateTime") LocalDateTime nowDateTime);
+	
+	/** 出勤チェック */
+	public int checkRecord(String userId);
 }
 

@@ -14,6 +14,12 @@ xmlns:sec ="http://www.thymeleaf.org/extras/spring-security">
 		<li role ="presentation" sec:authorize ="hasRole('ADMIN')">
 		<a class ="nav-link" th:href ="@{'/admin'}">アド ミン 専用 </a>
 		</li>
+		<li role =" presentation">
+		<a class ="nav-link" th:href ="@{'/mypage'}">マイページ</a>
+		</li>
+		<li role ="presentation">
+		<a class ="nav-link">hogehoge</a>
+		</li>
 	</ul> 
 	</div>
 </body>

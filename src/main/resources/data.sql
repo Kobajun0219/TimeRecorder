@@ -38,3 +38,11 @@ INSERT INTO t_salary (
 ('user@co.jp','2020/11',280000)
 ,('user@co.jp','2020/12',290000)
 ,('user@co.jp','2021/01',300000);
+
+INSERT INTO user_time (
+	 user_id
+	,start_time
+	,finish_time 
+	,work_flag
+)VALUES
+('2','2020/11/12',null,1);

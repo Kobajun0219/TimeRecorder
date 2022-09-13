@@ -19,6 +19,7 @@ import lombok.Data;
 @Data
 public class MUser {
 //	@Id
+	private Integer id;
 	private String userId;
 	private String password;
 	private String userName;
@@ -29,6 +30,7 @@ public class MUser {
 	private String role;
 	private Department department;
 	private List<Salary> salaryList;
+	private WorkUser UserTime;
 //	@ManyToOne(optional = true)
 //	@JoinColumn(insertable = false,updatable = false, name = "departmentId")
 //	private Department department;

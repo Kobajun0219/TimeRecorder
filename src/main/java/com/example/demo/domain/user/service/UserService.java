@@ -2,6 +2,7 @@ package com.example.demo.domain.user.service;
 
 import java.util.List;
 import com.example.demo.domain.user.model.MUser;
+import com.example.demo.domain.user.model.WorkUser;
 
 public interface UserService {
 	
@@ -24,4 +25,13 @@ public interface UserService {
 	
 	/** ログイン ユーザー 情報 取得 */
 	public MUser getLoginUser(String userId);
+	
+	/** 出勤時間を記録 */
+	public void startRecord(String userId);
+	
+	/** 出勤者を取得 */
+	public List <WorkUser>getworkers();
+	
+	/** 退勤時間を記録 */
+	public void finishRecord(String userId);
 }
