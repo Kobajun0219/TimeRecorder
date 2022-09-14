@@ -2,7 +2,7 @@ TRUNCATE TABLE employee;
 TRUNCATE TABLE m_user;
 TRUNCATE TABLE m_department;
 TRUNCATE TABLE t_salary;
---
+
 INSERT INTO employee (id, name, age) 
 VALUES('1', 'Tom', 30);
 

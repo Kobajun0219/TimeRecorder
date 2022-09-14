@@ -78,15 +78,15 @@ public class UserServiceImpl implements UserService{
 	/** 出勤時間を記録 */
 	@Override
 	public void startRecord(String userId) {
-		int check = mapper.checkRecord(userId);
-		System.out.println(check);
+		//出勤しているかをチェック
+		int check = checkRecord(userId);
 		if(check == 0) {
 			LocalDateTime nowDateTime = LocalDateTime.now();
 			mapper.startRecord(userId,nowDateTime);
 		}
 	}
 	
-	
+	/** 出勤者を取得 */
 	@Override
 	public List <WorkUser>getworkers(){
 		return mapper.getworkers();
@@ -97,5 +97,23 @@ public class UserServiceImpl implements UserService{
 	public void finishRecord(String userId) {
 		LocalDateTime nowDateTime = LocalDateTime.now();
 		mapper.finishRecord(userId,nowDateTime);
+	}
+	
+	/** 個人の出勤記録を取得 */
+	@Override
+	public List <WorkUser>getRecord(Integer id){
+		return mapper.getRecord(id);
+	}
+		
+	/** 勤怠記録を取得 */
+	@Override
+	public List <WorkUser>allRecord(){
+		return mapper.allRecord();
+	}
+	
+	/** 出勤判定 */
+	@Override
+	public int checkRecord(String userId){
+		return mapper.checkRecord(userId);
 	}
 }

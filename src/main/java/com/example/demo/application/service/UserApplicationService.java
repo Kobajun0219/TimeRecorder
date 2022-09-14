@@ -1,11 +1,16 @@
 package com.example.demo.application.service;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +21,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service; 
+import com.example.demo.domain.user.model.WorkUser;
 
 //import com.example.demo.domain.user.model.MUser;
 
@@ -30,6 +36,8 @@ public class UserApplicationService {
 	
 	@Autowired 
 	private ResourceLoader resourceLoader;
+	
+	
 	
 	/** ファイル保存先 */
 	private String filePath="C:\\work";
@@ -48,6 +56,45 @@ public class UserApplicationService {
 		
 		return genderMap;
 	}
+	
+	/** 出勤退勤 の Map を 生成 する */ 
+	public Map < Integer,String > getWorkMap() {
+		HashMap<Integer,String> workMap = new HashMap<>();
+		workMap.put(0,"退勤済み");
+		workMap.put(1,"出勤中"); 
+		
+		return workMap;
+	}
+	
+	/** 勤務時間の計算 */ 
+	public String getWorkDuration(WorkUser workUser){
+		
+		if(workUser.getWorkFlag() !=1) {
+			LocalDateTime  finishTime = workUser.getFinishTime();
+			LocalDateTime  startTime =  workUser.getStartTime();
+			Duration duration = Duration.between(startTime, finishTime);
+			long seconds = duration.getSeconds();
+			int hour =  (int) seconds / 3600;
+			int min =  (int) (seconds%3600) / 60;
+			int sec =  (int) seconds % 60;		
+			String duraiton = (hour+"時間"+min+"分"+sec+"秒");
+			
+			return duraiton;
+		}
+		
+		String duraiton = "勤務中";
+		return duraiton;
+	}
+	
+	/** 出勤日時を生成 */ 
+	public LocalDate getStartDate(WorkUser workUser){
+		LocalDateTime startTime =  workUser.getStartTime();
+		LocalDate startDate = LocalDate.from(startTime);		
+		return startDate;
+	}
+	
+	
+	
 	
 //	/** ユーザーリストをCSVに保存する */
 //	public void saveUserCsv(List<MUser>userList, String fileName)throws IOException {

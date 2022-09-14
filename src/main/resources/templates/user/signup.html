@@ -15,7 +15,6 @@
 	<title th:text ="#{user.signup.title}"></title>
 </head>
 <body class ="bg-light">
-<div>言語は	<div th:text="${locale}"></div></div>
 <form id ="signup-form" method ="post" action ="/user/signup" class ="form-signup" th:object="${signupForm}">
 	<h1 class ="text-center" th:text ="#{user.signup.title}"></h1>
 	<div class ="form-group">

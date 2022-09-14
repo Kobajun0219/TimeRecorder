@@ -37,17 +37,10 @@ public class UserListController {
 	@Autowired
 	private UserApplicationService appService;
 
-	/** ユーザー 一覧 画面 を 表示 */
+	/** 最初の画面 を 表示 */
 
 	@GetMapping("/list")
 	public String getUserList(@ModelAttribute UserListForm form,Model model, HttpServletRequest httpServletRequest) {
-
-		// form を MUser クラス に 変換
-		MUser user = modelMapper.map(form, MUser.class);
-
-		// ユーザー 検索
-		List<MUser> userList = userService.getUsers(user);
-		System.out.println("ユーザー："+userList);
 		
 		//出勤者一覧を取得
 		List<WorkUser> workerList = userService.getworkers();
@@ -60,10 +53,11 @@ public class UserListController {
 		loginUser.setPassword(null);
 		model.addAttribute("loginUserId", loginUser.getId());	
 		
-		// Model に 登録
-		model.addAttribute("userList", userList);
-		
-
+		//出勤判定 0==出勤中　1==退勤済みor未出勤
+		 int i = userService.checkRecord(username);
+		 
+		 model.addAttribute("checkRecord", i);	
+		 System.out.println(i);
 		// ユーザー 一覧 画面 を 表示
 		return "user/list";
 	}

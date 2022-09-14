@@ -65,7 +65,7 @@ public class UserDetailController {
 		}
 		
 		// ユーザー 一覧 画面 に リダイレクト
-		return "redirect:/user/list";
+		return "redirect:/mypage";
 	}
 	
 	/** ユーザー 削除 処理 */
@@ -76,6 +76,6 @@ public class UserDetailController {
 		userService.deleteUserOne(form. getUserId());
 		
 		// ユーザー 一覧 画面 に リダイレクト
-		return "redirect:/user/list";
+		return "redirect:/mypage";
 	}
 }

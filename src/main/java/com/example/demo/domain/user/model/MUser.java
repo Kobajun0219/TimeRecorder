@@ -30,7 +30,7 @@ public class MUser {
 	private String role;
 	private Department department;
 	private List<Salary> salaryList;
-	private WorkUser UserTime;
+	private List<WorkUser> UserTime;
 //	@ManyToOne(optional = true)
 //	@JoinColumn(insertable = false,updatable = false, name = "departmentId")
 //	private Department department;

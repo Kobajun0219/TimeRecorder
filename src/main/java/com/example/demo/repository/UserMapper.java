@@ -46,5 +46,11 @@ public interface UserMapper {
 	
 	/** 出勤チェック */
 	public int checkRecord(String userId);
+	
+	/** 個人の出勤記録を取得 */
+	public List<WorkUser> getRecord(Integer id);
+	
+	/** 個人の出勤記録を取得 */
+	public List<WorkUser> allRecord();
 }
 

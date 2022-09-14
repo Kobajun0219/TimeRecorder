@@ -34,4 +34,13 @@ public interface UserService {
 	
 	/** 退勤時間を記録 */
 	public void finishRecord(String userId);
+	
+	/** 個人の出勤記録を取得 */
+	public List <WorkUser>getRecord(Integer id);
+	
+	/** 勤怠記録を取得 */
+	public List <WorkUser>allRecord();
+	
+	/** 出勤判定 */
+	public int checkRecord(String userId);
 }

@@ -1,15 +1,85 @@
 <!DOCTYPE html>
-<html xmlns:th ="http://www.thymeleaf.org" 
-xmlns:layout ="http://www.ultraq.net.nz/thymeleaf/layout" 
-layout:decorate="~{layout/layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
 <title>アド ミン 権限 専用</title>
 </head>
 <body>
-<div layout:fragment ="content">
-	<div class ="header border-bottom mt-2">
-	<h1 class ="h2"> アドミン権限専用画面</h1>
+	<div layout:fragment="content">
+		<div class="header border-bottom mt-2">
+			<h1 class="h2">アドミン権限専用画面</h1>
+		</div>
+		<div class="header border-bottom mt-2">
+			<h2 class="h3">社員勤怠情報一覧</h2>
+		</div>
+		<div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead class="thead-light">
+					<tr>
+					　　　<th class="th-width">出勤状況</th>
+						<th class="th-width">日付</th>
+						<th class="th-width">出勤時間</th>
+						<th class="th-width">退勤時間</th>
+						<th class="th-width">勤務時間</th>
+					</tr>
+				</thead>
+				<tbody>
+	 					<tr th:each="record:${allRecord}">
+	 					<th th:text="${workMap[record.workFlag]}"></th>
+						<td th:text="${record.startDate}"></td>
+						<td th:text="${record.startTime}"></td>
+						<td th:text="${record.finishTime}"></td>
+						<td th:text="${record.duration}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="header border-bottom">
+			<h2 class="h3">ユーザー 一覧</h2>
+		</div>
+		検索
+		<div class="mb-4">
+			<form id="user-search-form" method="post" th:action="@{/user/list}"
+				class="form-inline" th:object="${userListForm}">
+				<div class="form-group">
+					<label for="userId" class="mr-2">ユーザー ID</label> <input type="text"
+						class="form-control" th:field="*{userId}" />
+				</div>
+				<div class="form-group mx-sm-3">
+					<label for="userNameuserName" class=" mr-2">ユーザー 名</label> <input
+						type="text" class="form-control" th:field="*{userName}" />
+				</div>
+				<button class="btn btn-primary" type="submit">検索</button>
+				<!-- 		<button id ="btn-search" class ="btn btn-primary ml-3" type ="button">検索(REST)</button> -->
+			</form>
+		</div>
+		一覧 表示
+		<div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead class="thead-light">
+					<tr>
+						<th class="th-width">ユーザーID</th>
+						<th class="th-width">ユーザー 名</th>
+						<th class="th-width">誕生日</th>
+						<th class="th-width">年齢</th>
+						<th class="th-width">性別</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${ userList}">
+						<td th:text="${item. userId}"></td>
+						<td th:text="${item.userName}"></td>
+						<td th:text="${#dates.format(item.birthday,'YYYY/MM/dd')}"></td>
+						<td th:text="${item.age}"></td>
+						<td th:text="${item.gender == 1}?'男性':'女性'"></td>
+						<td><a class="btn btn-primary"
+							th:href="@{'/user/detail/'+${item.userId}}"> 詳細 </a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
 </body>
 </html>

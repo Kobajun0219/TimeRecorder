@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- Mapperとxml の マッピング -->
-<mapper namespace="com.example.demo.repository.UserMapper">
+<mapper namespace ="com.example.demo.repository.UserMapper">
 
 	<!-- マッピング 定義( ユーザー) -->
 	<resultMap type="com.example.demo.domain.user.model.MUser"
@@ -159,7 +159,7 @@
 		values (
 		#{userId}
 		,#{nowDateTime}
-		,null
+		,NULL
 		,1
 		)
 	</select>
@@ -189,5 +189,35 @@
 		user_time.user_id = m_user.id
 		where
 		work_flag =1
+	</select>
+	
+	<!-- 個人の勤怠情報の取得 -->
+	<select id="getRecord" resultType="WorkUser">
+		select
+		 m_user.id
+		,start_time
+		,finish_time
+		,work_flag
+		from
+		user_time
+		left join m_user
+		on
+		user_time.user_id = m_user.id
+		where
+		m_user.id = #{id}
+	</select>
+	
+	<!-- すべての勤退記録を取得 -->
+	<select id="allRecord" resultType="WorkUser">
+		select
+		 m_user.id
+		,start_time
+		,finish_time
+		,work_flag
+		from
+		user_time
+		left join m_user
+		on
+		user_time.user_id = m_user.id
 	</select>
 </mapper>
