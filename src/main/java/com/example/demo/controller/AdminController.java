@@ -165,29 +165,26 @@ public class AdminController {
 		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
 	}
 	
-//	/** 勤務記録一覧ダウンロード処理 */
-//	@PostMapping("/admin/workRecord/download")
-//	public ResponseEntity<byte[]> downloadWorkRecordList(@ModelAttribute UserListForm form) throws IOException {
-//
-//		// formをMUserクラスに変換
-//		MUser user = modelMapper.map(form, MUser.class);
-//
-//		// ユーザー検索
-//		List<MUser> userList = userService.getUsers(user);
-//
-//		// CSVファイル保存
-//		String fileName = "user.csv";
-//		appService.saveUserCsv(userList, fileName);
-//
-//		// CSVファイル取得
-//		byte[] bytes = appService.getCsv(fileName);
-//
-//		HttpHeaders header = new HttpHeaders();
-//
-//		// HTTPヘッダーの設定
-//		header.add("Content-Type", MediaType.ALL_VALUE + "; charset=utf-8");
-//		header.setContentDispositionFormData("filename", fileName);
-//
-//		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
-//	}
+	/** 勤務記録一覧ダウンロード処理 */
+	@PostMapping("/admin/workRecord/download")
+	public ResponseEntity<byte[]> downloadWorkRecordList(@ModelAttribute UserListForm form) throws IOException {
+
+		//出退勤レコードを取得
+		List<WorkUser> WorkUser = userService.allRecord();
+		
+		// CSVファイル保存
+		String fileName = "userRecord.csv";
+		appService.saveRecordCsv(WorkUser, fileName);
+
+		// CSVファイル取得
+		byte[] bytes = appService.getCsv(fileName);
+
+		HttpHeaders header = new HttpHeaders();
+
+		// HTTPヘッダーの設定
+		header.add("Content-Type", MediaType.ALL_VALUE + "; charset=utf-8");
+		header.setContentDispositionFormData("filename", fileName);
+
+		return new ResponseEntity<>(bytes, header, HttpStatus.OK);
+	}
 }

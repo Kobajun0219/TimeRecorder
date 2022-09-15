@@ -111,6 +111,22 @@ public class UserApplicationService {
 		Files.write(path,bytes);
 	}
 	
+	/** 出勤記録をCSVに保存する */
+	public void saveRecordCsv(List<WorkUser>workUser, String fileName)throws IOException {
+		// CSV文字列作成
+		StringBuilder sb= new StringBuilder();
+		for(WorkUser workRecord : workUser) {
+			sb.append(workRecord.toCsv());}
+		// ファイル保存先パス作成
+		Path path= Paths.get(filePath+SEPARATOR+fileName);
+		
+		// byte配列作成
+		byte[]bytes=sb.toString().getBytes();
+		
+		// ファイル書込
+		Files.write(path,bytes);
+	}
+	
 	/** CSVファイル取得. */
 	public byte[] getCsv(String fileName)throws IOException {
 		// パス 
