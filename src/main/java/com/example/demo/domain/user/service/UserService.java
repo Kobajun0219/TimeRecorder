@@ -13,10 +13,10 @@ public interface UserService {
 	public List <MUser>getUsers(MUser user);
 
 	/** ユーザー 取得( 1 件) */ 
-	public MUser getUserOne(String userId);
+	public MUser getUserOne(String userMail);
 	
 	/** ユーザー 更新( 1 件) */
-	public void updateUserOne(String userId,
+	public void updateUserOne(String userMail,
 		String password,
 		String userName);
 	
@@ -27,13 +27,13 @@ public interface UserService {
 	public MUser getLoginUser(String userId);
 	
 	/** 出勤時間を記録 */
-	public void startRecord(String userId);
+	public void startRecord(Integer uId);
+	
+	/** 退勤時間を記録 */
+	public void finishRecord(Integer uId);
 	
 	/** 出勤者を取得 */
 	public List <WorkUser>getworkers();
-	
-	/** 退勤時間を記録 */
-	public void finishRecord(String userId);
 	
 	/** 個人の出勤記録を取得 */
 	public List <WorkUser>getRecord(Integer id);
@@ -42,5 +42,5 @@ public interface UserService {
 	public List <WorkUser>allRecord();
 	
 	/** 出勤判定 */
-	public int checkRecord(String userId);
+	public int checkRecord(Integer id);
 }

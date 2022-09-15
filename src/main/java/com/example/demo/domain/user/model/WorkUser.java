@@ -13,6 +13,7 @@ public class WorkUser {
 	private LocalDateTime   startTime;
 	private LocalDateTime   finishTime;
 	private int  workFlag;
+	private String message;
 	private String  duration;
 	private LocalDate  startDate;
 }

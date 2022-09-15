@@ -31,10 +31,10 @@ public class UserDetailController {
 	/** ユーザー 詳細 画面 を 表示 */
 	@GetMapping("/detail/{userId:.+}")
 	public String getUser(UserDetailForm form, Model model,
-			@PathVariable("userId") String userId) {
+			@PathVariable("userId") String userMail) {
 		
 		// ユーザー を 1 件 取得
-		MUser user = userService.getUserOne(userId);
+		MUser user = userService.getUserOne(userMail);
 		user.setPassword(null);
 		
 		// MUser を form に 変換 
@@ -57,7 +57,7 @@ public class UserDetailController {
 		
 		try {
 		// ユーザー を 更新
-		userService.updateUserOne(form. getUserId(),
+		userService.updateUserOne(form. getUserMail(),
 				form. getPassword(),
 				form. getUserName());
 		}catch(Exception e) {
@@ -73,7 +73,7 @@ public class UserDetailController {
 	public String deleteUser(UserDetailForm form, Model model) {
 		
 		// ユーザー を 削除
-		userService.deleteUserOne(form. getUserId());
+		userService.deleteUserOne(form. getUserMail());
 		
 		// ユーザー 一覧 画面 に リダイレクト
 		return "redirect:/mypage";

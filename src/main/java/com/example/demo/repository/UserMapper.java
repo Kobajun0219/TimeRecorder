@@ -19,10 +19,10 @@ public interface UserMapper {
 	
 	
 	/** ユーザー 取得( 1 件) */ 
-	public MUser findOne(String userId);
+	public MUser findOne(String userMail);
 	
 	/** ユーザー 更新( 1 件) */ 
-	public void updateOne(@Param("userId") String userId,
+	public void updateOne(@Param("userMail") String userMail,
 		@Param("password") String password,
 		@Param("userName") String userName);
 	
@@ -34,18 +34,18 @@ public interface UserMapper {
 	public MUser findLoginUser(String userId);
 	
 	/** 出勤を記録 */
-	public void startRecord(@Param("userId") String id,
+	public void startRecord(@Param("uId") Integer uId,
 							@Param("nowDateTime") LocalDateTime nowDateTime);
 	
 	/** 出勤者を取得 */
 	public List<WorkUser>getworkers();
 	
 	/** 出勤を記録 */
-	public void finishRecord(@Param("userId") String id,
+	public void finishRecord(@Param("uId") Integer uId,
 							@Param("nowDateTime") LocalDateTime nowDateTime);
 	
 	/** 出勤チェック */
-	public int checkRecord(String userId);
+	public int checkRecord(Integer id);
 	
 	/** 個人の出勤記録を取得 */
 	public List<WorkUser> getRecord(Integer id);

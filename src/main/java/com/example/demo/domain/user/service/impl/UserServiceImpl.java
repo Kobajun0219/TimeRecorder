@@ -44,20 +44,20 @@ public class UserServiceImpl implements UserService{
 	
 	/** ユーザー 取得( 1 件) */
 	@Override 
-	public MUser getUserOne(String userId) {
-		return mapper.findOne(userId);
+	public MUser getUserOne(String userMail) {
+		return mapper.findOne(userMail);
 	}
 	
 	/** ユーザー 更新( 1 件) */
 	@Transactional
 	@Override
-	public void updateUserOne(String userId,
+	public void updateUserOne(String userMail,
 		String password,
 		String userName){
 		
 		// パスワード 暗号化
 		String encryptPassword = encoder.encode(password);
-		mapper.updateOne(userId,encryptPassword,userName);
+		mapper.updateOne(userMail,encryptPassword,userName);
 		
 //		 例外 を 発生 さ せる
 //		int i = 1/0;	
@@ -77,12 +77,12 @@ public class UserServiceImpl implements UserService{
 	
 	/** 出勤時間を記録 */
 	@Override
-	public void startRecord(String userId) {
+	public void startRecord(Integer uId) {
 		//出勤しているかをチェック
-		int check = checkRecord(userId);
+		int check = checkRecord(uId);
 		if(check == 0) {
 			LocalDateTime nowDateTime = LocalDateTime.now();
-			mapper.startRecord(userId,nowDateTime);
+			mapper.startRecord(uId,nowDateTime);
 		}
 	}
 	
@@ -94,9 +94,9 @@ public class UserServiceImpl implements UserService{
 	
 	/** 退勤時間を記録 */
 	@Override
-	public void finishRecord(String userId) {
+	public void finishRecord(Integer uId) {
 		LocalDateTime nowDateTime = LocalDateTime.now();
-		mapper.finishRecord(userId,nowDateTime);
+		mapper.finishRecord(uId,nowDateTime);
 	}
 	
 	/** 個人の出勤記録を取得 */
@@ -111,9 +111,9 @@ public class UserServiceImpl implements UserService{
 		return mapper.allRecord();
 	}
 	
-	/** 出勤判定 */
+	/** 出勤判定 　0==退勤済みor未出勤　1==出勤中*/
 	@Override
-	public int checkRecord(String userId){
-		return mapper.checkRecord(userId);
+	public int checkRecord(Integer id){
+		return mapper.checkRecord(id);
 	}
 }

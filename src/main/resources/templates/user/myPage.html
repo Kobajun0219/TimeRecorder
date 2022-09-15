@@ -8,7 +8,7 @@
 <!-- CSS 読込 -->
 <link rel="stylesheet" th:href="@{/css/user/list.css}">
 <!-- JS 読込 -->
-<script th:src="@{/js/user/detail.js}" defer></script>
+<!-- <script th:src="@{/js/user/detail.js}" defer></script> -->
 </head>
 <body>
 	<div layout:fragment="content">
@@ -34,24 +34,29 @@
 							<td th:text="${record.startTime}"></td>
 							<td th:text="${record.finishTime}"></td>
 							<td th:text="${record.duration}"></td>
-							<td><a class="btn btn-primary" th:href="aaa"> 変更 </a></td>
+							<td>
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#changeModal">変更（仮）</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+		
+
 		<div class="header border-bottom">
 			<h1 class="h2">ユーザー 詳細</h1>
 		</div>
 		<form id="user-detail-form" method="post" th:action="@{/user/detail}"
 			class="form-signup" th:object="${userDetailForm}">
-			<input type="hidden" th:field="*{userId}" />
+			<input type="hidden" th:field="*{userMail}" />
 			<!-- ユーザー 詳細 情報 -->
 			<table class="table table-striped table-bordered table-hover">
 				<tbody>
 					<tr>
 						<th class="w-25">ユーザー ID</th>
-						<td th:text="*{userId}"></td>
+						<td th:text="*{userMail}"></td>
 					</tr>
 					<tr>
 						<th>パスワード</th>
@@ -84,9 +89,6 @@
 			</table>
 			<!-- ボタン エリア -->
 			<div class="text-center">
-				<!-- 削除 ボタン -->
-				<button class="btn btn-danger" type="submit" name="delete">
-					削除</button>
 				<!-- 更新 ボタン -->
 				<button class="btn btn-primary" type="submit" name="update">
 					更新</button>
@@ -113,9 +115,6 @@
 				</table>
 				</th:block>
 		</form>
-
-
-
 	</div>
 </body>
 </html>

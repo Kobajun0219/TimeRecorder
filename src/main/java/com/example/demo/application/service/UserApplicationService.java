@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Service; 
+import org.springframework.stereotype.Service;
+
+import com.example.demo.domain.user.model.MUser;
 import com.example.demo.domain.user.model.WorkUser;
 
 //import com.example.demo.domain.user.model.MUser;
@@ -36,7 +38,6 @@ public class UserApplicationService {
 	
 	@Autowired 
 	private ResourceLoader resourceLoader;
-	
 	
 	
 	/** ファイル保存先 */
@@ -60,7 +61,7 @@ public class UserApplicationService {
 	/** 出勤退勤 の Map を 生成 する */ 
 	public Map < Integer,String > getWorkMap() {
 		HashMap<Integer,String> workMap = new HashMap<>();
-		workMap.put(0,"退勤済み");
+		workMap.put(0,"退勤済");
 		workMap.put(1,"出勤中"); 
 		
 		return workMap;
@@ -94,35 +95,33 @@ public class UserApplicationService {
 	}
 	
 	
+	/** ユーザーリストをCSVに保存する */
+	public void saveUserCsv(List<MUser>userList, String fileName)throws IOException {
+		// CSV文字列作成
+		StringBuilder sb= new StringBuilder();
+		for(MUser user : userList) {
+			sb.append(user.toCsv());}
+		// ファイル保存先パス作成
+		Path path= Paths.get(filePath+SEPARATOR+fileName);
+		
+		// byte配列作成
+		byte[]bytes=sb.toString().getBytes();
+		
+		// ファイル書込
+		Files.write(path,bytes);
+	}
 	
-	
-//	/** ユーザーリストをCSVに保存する */
-//	public void saveUserCsv(List<MUser>userList, String fileName)throws IOException {
-//		// CSV文字列作成
-//		StringBuilder sb= new StringBuilder();
-//		for(MUser user : userList) {
-//			sb.append(user.toCsv());}
-//		// ファイル保存先パス作成
-//		Path path= Paths.get(filePath+SEPARATOR+fileName);
-//		
-//		// byte配列作成
-//		byte[]bytes=sb.toString().getBytes();
-//		
-//		// ファイル書込
-//		Files.write(path,bytes);
-//	}
-//	
-//	/** CSVファイル取得. */
-//	public byte[] getCsv(String fileName)throws IOException {
-//		// パス 
-//		String path="file:" + filePath + SEPARATOR+fileName;
-//		// ファイル取得
-//		Resource resource=resourceLoader.getResource(path);
-//		File file=resource.getFile();
-//		
-//		// byte配列取得
-//		return Files.readAllBytes(file.toPath());
-//	}
+	/** CSVファイル取得. */
+	public byte[] getCsv(String fileName)throws IOException {
+		// パス 
+		String path="file:" + filePath + SEPARATOR+fileName;
+		// ファイル取得
+		Resource resource=resourceLoader.getResource(path);
+		File file=resource.getFile();
+		
+		// byte配列取得
+		return Files.readAllBytes(file.toPath());
+	}
 //	
 //	/** 部署リストのCSVを作成する */
 //	public void saveDepartmentCsv(List<MUser> userList,String fileName)

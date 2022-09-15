@@ -9,8 +9,8 @@
 	<!-- マッピング 定義( ユーザー) -->
 	<resultMap type="com.example.demo.domain.user.model.MUser"
 		id="user">
-		<id column="user_id" property="userId" />
-		<result column="id" property="id" />
+		<id column="id" property="id" />
+		<result column="user_mail" property="userMail" />
 		<result column="password" property="password" />
 		<result column="user_name" property="userName" />
 		<result column="birthday" property="birthday" />
@@ -41,15 +41,19 @@
 	<!-- マッピング 定義(時間) -->
 	<resultMap type="com.example.demo.domain.user.model.WorkUser"
 		id="WorkUser">
-		<id column="user_name" property="userName"/>
+		<id column="id" property="id"/>
+		<result column="user_name" property="userName"/>
 		<result column="start_time" property="startTime"/>
+		<result column="start_time" property="finishTime"/>
+		<result column="work_flag" property="workFlag"/>
+		<result column="message" property="message"/>
 	</resultMap>
 
 
 	<!-- ユーザー 1 件 登録 -->
 	<insert id="insertOne">
 		insert into m_user(
-		user_id
+		user_mail
 		,password
 		,user_name
 		,birthday
@@ -59,7 +63,7 @@
 		,role
 		)
 		values (
-		#{userId}
+		#{userMail}
 		,#{password}
 		,#{userName}
 		,#{birthday}
@@ -77,11 +81,11 @@
 		from
 		m_user
 		<where>
-			<if test="userId !=null">
-				user_id like'%'||#{userId}||'%'
+			<if test="userMail !=null">
+				user_mail LIKE CONCAT('%',#{userMail},'%')
 			</if>
 			<if test="userName !=null">
-				and user_name like'%'||#{userName}||'%'
+				and user_name LIKE CONCAT('%',#{userName},'%')
 			</if>
 		</where>
 	</select>
@@ -91,7 +95,7 @@
 	<select id="findOne" resultMap="user">
 		select
 		id
-		,m_user.user_id
+		,m_user.user_mail
 		,m_user.password
 		,m_user.user_name
 		,m_user.birthday
@@ -108,10 +112,10 @@
 		on m_user.department_id =
 		m_department.department_id
 		left join t_salary
-		on m_user.user_id =
+		on m_user.id =
 		t_salary.user_id
 		where
-		m_user.user_id = #{userId}
+		m_user.user_mail = #{userMail}
 	</select>
 
 	<!-- ユーザー 1 件 更新 -->
@@ -122,7 +126,7 @@
 		password = #{password}
 		,user_name =#{userName}
 		where
-		user_id = #{userId}
+		user_mail = #{userMail}
 	</update>
 
 	<!-- ユーザー 1 件 削除 -->
@@ -157,7 +161,7 @@
 		,work_flag
 		)
 		values (
-		#{userId}
+		#{uId}
 		,#{nowDateTime}
 		,NULL
 		,1
@@ -172,7 +176,7 @@
 		 finish_time = #{nowDateTime}
 		,work_flag = 0
 		where
-		user_id = #{userId}
+		user_id = #{uId}
 		and
 		work_flag = 1
 	</update>
@@ -195,6 +199,7 @@
 	<select id="getRecord" resultType="WorkUser">
 		select
 		 m_user.id
+		,user_name
 		,start_time
 		,finish_time
 		,work_flag
@@ -210,10 +215,7 @@
 	<!-- すべての勤退記録を取得 -->
 	<select id="allRecord" resultType="WorkUser">
 		select
-		 m_user.id
-		,start_time
-		,finish_time
-		,work_flag
+		 *
 		from
 		user_time
 		left join m_user

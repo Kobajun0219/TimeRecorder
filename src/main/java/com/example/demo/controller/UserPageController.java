@@ -41,8 +41,8 @@ public class UserPageController {
 		// ユーザー情報を取得
 		String username = httpServletRequest.getRemoteUser();
 		MUser loginUser = userService.getUserOne(username);
-		String userId = loginUser.getUserId();
-		MUser user = userService.getUserOne(userId);
+		String userMail = loginUser.getUserMail();
+		MUser user = userService.getUserOne(userMail);
 		user.setPassword(null);
 		// MUser を form に 変換 
 		form = modelMapper.map(user,UserDetailForm.class);

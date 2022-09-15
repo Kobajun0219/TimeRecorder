@@ -168,9 +168,9 @@ public class SecurityConfig {
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
         String userQuery =
-                "select user_id,password,true from m_user where user_id = ?";
+                "select user_mail,password,true from m_user where user_mail = ?";
         String authoritiesQuery =
-                "select user_id,role from m_user where user_id = ?";
+                "select user_mail,role from m_user where user_mail = ?";
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
         users.setUsersByUsernameQuery(userQuery);
         users.setAuthoritiesByUsernameQuery(authoritiesQuery);

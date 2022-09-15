@@ -2,13 +2,14 @@ TRUNCATE TABLE employee;
 TRUNCATE TABLE m_user;
 TRUNCATE TABLE m_department;
 TRUNCATE TABLE t_salary;
+TRUNCATE TABLE user_time;
 
 INSERT INTO employee (id, name, age) 
 VALUES('1', 'Tom', 30);
 
 /* ユーザー マスタ */
 INSERT INTO m_user (
-	user_id 
+	user_mail
 	,password
 	,user_name
 	,birthday
@@ -35,14 +36,18 @@ INSERT INTO t_salary (
 	,y_month
 	,salary
 )VALUES
-('user@co.jp','2020/11',280000)
-,('user@co.jp','2020/12',290000)
-,('user@co.jp','2021/01',300000);
+(2,'2020/11',280000)
+,(2,'2020/12',290000)
+,(2,'2021/01',300000);
 
 INSERT INTO user_time (
 	 user_id
 	,start_time
-	,finish_time 
+	,finish_time
 	,work_flag
+	,message
 )VALUES
-('2','2020/11/12',null,1);
+(2,'2020/11/12','2020/11/13',0,"")
+,(2,'2020/11/12',null,1,"打刻わすれ");
+
+

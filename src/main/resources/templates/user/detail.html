@@ -17,13 +17,13 @@ layout:decorate="~{layout/layout}">
 </div>
 <form id ="user-detail-form" method ="post" th:action ="@{/user/detail}" 
 class ="form-signup" th:object ="${userDetailForm}">
-	<input type ="hidden" th:field ="*{userId}"/>
+	<input type ="hidden" th:field ="*{userMail}"/>
 	<!-- ユーザー 詳細 情報 -->
 	<table class ="table table-striped table-bordered table-hover">
 		<tbody>
 			<tr>
 			<th class ="w-25">ユーザー ID</th> 
-			<td th:text ="*{userId}"></td>
+			<td th:text ="*{userMail}"></td>
 			</tr>
 			<tr>
 			<th>パスワード</th>

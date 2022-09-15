@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 public class UserDetailForm {
-	private String userId;
+	private String userMail;
 	private String password;
 	private String userName;
 	private Date birthday;
