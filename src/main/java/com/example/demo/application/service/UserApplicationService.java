@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -92,6 +93,20 @@ public class UserApplicationService {
 		LocalDateTime startTime =  workUser.getStartTime();
 		LocalDate startDate = LocalDate.from(startTime);		
 		return startDate;
+	}
+	
+	/** 時間を所得 */ 
+	public LocalTime[] getTime(WorkUser workUser){
+		LocalTime timing[] = new LocalTime[2];
+		LocalDateTime startTime =  workUser.getStartTime();
+		timing[0] = LocalTime.from(startTime);	
+		if(workUser.getWorkFlag() !=1) {
+			LocalDateTime finishTime =  workUser.getFinishTime();
+			timing[1] = LocalTime.from(finishTime);	
+		}else {
+			timing[1] = null;	
+		}
+		return timing;
 	}
 	
 	

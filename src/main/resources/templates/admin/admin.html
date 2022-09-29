@@ -10,6 +10,22 @@
 		<div class="header border-bottom mt-2">
 			<h1 class="h2">アドミン権限専用画面</h1>
 		</div>
+		検索
+		<div class="mb-4">
+			<form id="user-search-form" method="post" th:action="@{/admin}"
+				class="form-inline" th:object="${userListForm}">
+				<div class="form-group">
+					<label for="userMail" class="mr-2">ユーザー ID</label> <input
+						type="text" class="form-control" th:field="*{userMail}" />
+				</div>
+				<div class="form-group mx-sm-3">
+					<label for="userNameuserName" class=" mr-2">ユーザー 名</label> <input
+						type="text" class="form-control" th:field="*{userName}" />
+				</div>
+				<button class="btn btn-primary" type="submit">検索</button>
+				<!-- 		<button id ="btn-search" class ="btn btn-primary ml-3" type ="button">検索(REST)</button> -->
+			</form>
+		</div>
 		<div>
 			<div class="header border-bottom mt-2">
 				<h2 class="h3">社員勤怠情報一覧</h2>
@@ -32,8 +48,8 @@
 							<th th:text="${record.userName}"></th>
 							<th th:text="${workMap[record.workFlag]}"></th>
 							<td th:text="${record.startDate}"></td>
-							<td th:text="${record.startTime}"></td>
-							<td th:text="${record.finishTime}"></td>
+							<td th:text="${record.startTiming}"></td>
+							<td th:text="${record.finishTiming}"></td>
 							<td th:text="${record.duration}"></td>
 							<td th:text="${record.message}"></td>
 						</tr>
@@ -50,22 +66,6 @@
 		</div>
 		<div class="header border-bottom pt-2">
 			<h2 class="h3">ユーザー 一覧</h2>
-		</div>
-		検索
-		<div class="mb-4">
-			<form id="user-search-form" method="post" th:action="@{/admin}"
-				class="form-inline" th:object="${userListForm}">
-				<div class="form-group">
-					<label for="userMail" class="mr-2">ユーザー ID</label> <input type="text"
-						class="form-control" th:field="*{userMail}" />
-				</div>
-				<div class="form-group mx-sm-3">
-					<label for="userNameuserName" class=" mr-2">ユーザー 名</label> <input
-						type="text" class="form-control" th:field="*{userName}" />
-				</div>
-				<button class="btn btn-primary" type="submit">検索</button>
-				<!-- 		<button id ="btn-search" class ="btn btn-primary ml-3" type ="button">検索(REST)</button> -->
-			</form>
 		</div>
 		一覧 表示
 		<div>

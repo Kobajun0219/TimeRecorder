@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -18,6 +19,8 @@ public class WorkUser {
 	private String message;
 	private String  duration;
 	private LocalDate  startDate;
+	private LocalTime  StartTiming;
+	private LocalTime  FinishTiming;
 	
 	
 	

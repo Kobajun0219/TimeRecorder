@@ -31,8 +31,8 @@
 					<tbody>
 						<tr th:each="record:${workRecord}">
 							<td th:text="${record.startDate}"></td>
-							<td th:text="${record.startTime}"></td>
-							<td th:text="${record.finishTime}"></td>
+							<td th:text="${record.startTiming}"></td>
+							<td th:text="${record.finishTiming}"></td>
 							<td th:text="${record.duration}"></td>
 							<td>
 								<button type="button" class="btn btn-primary"

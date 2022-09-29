@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,23 +68,28 @@ public class AdminController {
 		model.addAttribute("userList", userList);
 		
 		//出退勤レコードを取得
-		List<WorkUser> allRecord = userService.allRecord();
+		List<WorkUser> allRecords = userService.allRecord();
 		
-        //勤務時間と出勤日時を追加	
-		for (int i = 0; i < allRecord.size(); i++) {   
-			
-			//勤務時間追加
-			String duration = userApplicationService.getWorkDuration(allRecord.get(i));
-			allRecord.get(i).setDuration(duration);
-			
-			//出勤日時を生成
-			LocalDate startDate = userApplicationService.getStartDate(allRecord.get(i));
-			allRecord.get(i).setStartDate(startDate);
-		}
+	      //勤務時間と出勤日時を追加	
+			for (WorkUser allRecord : allRecords) {   
+				
+				//勤務時間追加
+				String duration = userApplicationService.getWorkDuration(allRecord);
+				allRecord.setDuration(duration);
+				
+				//出勤日時を生成
+				LocalDate startDate = userApplicationService.getStartDate(allRecord);
+				allRecord.setStartDate(startDate);
+				
+				//時間だけを所得する
+				LocalTime[] Timing = userApplicationService.getTime(allRecord);
+				allRecord.setStartTiming(Timing[0]);
+				allRecord.setFinishTiming(Timing[1]);
+			}
 		
 		// Model に 登録
-		System.out.println(allRecord);
-		model.addAttribute("allRecord", allRecord);
+		System.out.println(allRecords);
+		model.addAttribute("allRecord", allRecords);
 		
 		Map<Integer,String>workMap = userApplicationService.getWorkMap();
 		
@@ -101,33 +107,38 @@ public class AdminController {
 		MUser user = modelMapper.map(form, MUser.class);
 
 		// ユーザー 検索
-		List<MUser> userList = userService.getUsers(user);
+		List<MUser> userLists = userService.getUsers(user);
 		// Model に 登録
-		model.addAttribute("userList", userList);
+		model.addAttribute("userList", userLists);
 		
 		//検索したユーザーの出退勤レコードを取得
-		List<WorkUser> allRecord =new ArrayList<WorkUser>();
+		List<WorkUser> allRecords =new ArrayList<WorkUser>();
+				
+		for(MUser userList:userLists) {
+			allRecords = userService.getRecord(userList.getId());
+		}
 		
-		for(int i = 0; i < userList.size(); i++)
-			allRecord = userService.getRecord(userList.get(i).getId());
 		
-		
-		
-        //勤務時間と出勤日時を追加	
-		for (int i = 0; i < allRecord.size(); i++) {   
+      //勤務時間と出勤日時を追加	
+		for (WorkUser allRecord : allRecords) {   
 			
 			//勤務時間追加
-			String duration = userApplicationService.getWorkDuration(allRecord.get(i));
-			allRecord.get(i).setDuration(duration);
+			String duration = userApplicationService.getWorkDuration(allRecord);
+			allRecord.setDuration(duration);
 			
 			//出勤日時を生成
-			LocalDate startDate = userApplicationService.getStartDate(allRecord.get(i));
-			allRecord.get(i).setStartDate(startDate);
+			LocalDate startDate = userApplicationService.getStartDate(allRecord);
+			allRecord.setStartDate(startDate);
+			
+			//時間だけを所得する
+			LocalTime[] Timing = userApplicationService.getTime(allRecord);
+			allRecord.setStartTiming(Timing[0]);
+			allRecord.setFinishTiming(Timing[1]);
 		}
 		
 		// Model に 登録
-		System.out.println(allRecord);
-		model.addAttribute("allRecord", allRecord);
+		System.out.println(allRecords);
+		model.addAttribute("allRecord", allRecords);
 		
 		Map<Integer,String>workMap = userApplicationService.getWorkMap();
 		model.addAttribute("workMap", workMap);

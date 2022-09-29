@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -53,26 +56,42 @@ public class UserPageController {
 		
 		//個人の出勤記録を取得
 		int id = loginUser.getId();
-		List<WorkUser> workRecord = userService.getRecord(id);
-		System.out.println(workRecord);
+		List<WorkUser> workRecords = userService.getRecord(id) ;
+		System.out.println(workRecords);
 		
-        //勤務時間と出勤日時を追加	
-		for (int i = 0; i < workRecord.size(); i++) {   
+//		//勤務時間追加
+//		String duration = userApplicationService.getWorkDuration(workRecord);
+//		workRecord.setDuration(duration);
+//		
+//		//出勤日時を生成
+//		LocalDate startDate = userApplicationService.getStartDate(workRecord);
+//		workRecord.setStartDate(startDate);
+		
+		
+//        //勤務時間と出勤日時を追加	
+		for (WorkUser workRecord: workRecords) {   
+			System.out.println(workRecord);
 			
 			//勤務時間追加
-			String duration = userApplicationService.getWorkDuration(workRecord.get(i));
-			workRecord.get(i).setDuration(duration);
+			String duration = userApplicationService.getWorkDuration(workRecord);
+			workRecord.setDuration(duration);
 			
 			//出勤日時を生成
-			LocalDate startDate = userApplicationService.getStartDate(workRecord.get(i));
-			workRecord.get(i).setStartDate(startDate);
+			LocalDate startDate = userApplicationService.getStartDate(workRecord);
+			workRecord.setStartDate(startDate);
+			
+			//時間だけを所得する
+			LocalTime[] Timing = userApplicationService.getTime(workRecord);
+			workRecord.setStartTiming(Timing[0]);
+			workRecord.setFinishTiming(Timing[1]);
 			
 		}
 		 //Model に 登録
-		model.addAttribute("workRecord", workRecord);
-		System.out.println(model);
+		model.addAttribute("workRecord", workRecords);
 		// マイページ を 表示
 		return "user/myPage";
 	}
+
+
 
 }
