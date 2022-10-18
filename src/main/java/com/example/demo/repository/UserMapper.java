@@ -52,5 +52,8 @@ public interface UserMapper {
 	
 	/** 個人の出勤記録を取得 */
 	public List<WorkUser> allRecord();
+	
+	/** 勤退時間を更新 */
+	public void UpdateRecord(int id, LocalDateTime startTime, LocalDateTime finishTime, String message);
 }
 

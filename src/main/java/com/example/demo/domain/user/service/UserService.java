@@ -1,5 +1,6 @@
 package com.example.demo.domain.user.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import com.example.demo.domain.user.model.MUser;
 import com.example.demo.domain.user.model.WorkUser;
@@ -43,4 +44,9 @@ public interface UserService {
 	
 	/** 出勤判定 */
 	public int checkRecord(Integer id);
+	
+	/** 勤退時間を更新 */
+	public void UpdateRecord(int id, LocalDateTime startTime, LocalDateTime finishTime, String message);
+	
+	
 }

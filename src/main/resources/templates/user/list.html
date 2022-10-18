@@ -7,26 +7,11 @@
 <!-- 個別 CSS 読込 -->
 <link rel=" stylesheet" th:href="@{/css/user/list.css}">
 <!-- 個別 JS 読込 -->
-<link rel="stylesheet"
-	th:href="@{/webjars/datatables/css/jquery.dataTables.min.css}">
-<script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"
-	defer></script>
-<script th:src="@{/js/user/list.js}" defer></script>
-<script th:inline="javascript">
-	//出勤退勤ボタンの制御
-	function startFunc() {
-		const checkRecord = /*[[${checkRecord}]]*/"checkRecord";
-		if(checkRecord ==0){
-			document.getElementById("finish").classList.add("disabled");
-		}else{
-			document.getElementById("start").classList.add("disabled");
-			alert("出勤中");
-		}
-	}
-</script>
-
+<link rel="stylesheet" th:href="@{/webjars/datatables/css/jquery.dataTables.min.css}">
+<script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}" defer></script>
+<script type="text/javascript" src="js/user/list.js" th:src="@{/js/user/list.js}"></script>
 </head>
-<body onload="startFunc()">
+<body>
 	<div layout:fragment="content">	
 		<div id="user-record-form" class="header border-bottom">
 			<h1>勤怠管理をするよ君</h1>
@@ -51,6 +36,11 @@
 				</table>
 			</div>
 		</div>
+		<script th:inline="javascript">
+			const checkRecord = /*[[${checkRecord}]]*/"checkRecord";
+			startFunc();
+		</script>
+
 	</div>
 </body>
 </html>

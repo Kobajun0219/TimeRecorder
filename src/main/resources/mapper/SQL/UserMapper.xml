@@ -159,7 +159,7 @@
 		,start_time
 		,finish_time
 		,work_flag
-		)
+		)	
 		values (
 		#{uId}
 		,#{nowDateTime}
@@ -198,11 +198,12 @@
 	<!-- 個人の勤怠情報の取得 -->
 	<select id="getRecord" resultType="WorkUser">
 		select
-		 m_user.id
+		 user_time.id
 		,user_name
 		,start_time
 		,finish_time
 		,work_flag
+		,message
 		from
 		user_time
 		left join m_user
@@ -221,5 +222,17 @@
 		left join m_user
 		on
 		user_time.user_id = m_user.id
+	</select>
+	
+	<!-- 勤退記録を更新 -->
+	<select id="UpdateRecord">
+		update
+		 user_time
+		set
+		start_time = #{startTime}
+		,finish_time =#{finishTime}
+		,message=#{message}
+		where
+		user_time.id = #{id}
 	</select>
 </mapper>

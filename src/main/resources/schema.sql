@@ -41,9 +41,10 @@ CREATE TABLE IF NOT EXISTS t_salary (
 
 /*　時間テーブル */
 CREATE TABLE IF NOT EXISTS user_time (
-	 user_id INT
+     id int NOT NULL AUTO_INCREMENT PRIMARY KEY
+	,user_id INT
 	,start_time DATETIME
 	,finish_time DATETIME 
 	,work_flag INT
-	,message VARCHAR(50)
+	,message VARCHAR(50) DEFAULT ''
 );

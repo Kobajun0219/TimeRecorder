@@ -154,8 +154,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
         ).authorizeHttpRequests(authz -> authz
                 .mvcMatchers("/login").permitAll() // 直リンクOK
-                .mvcMatchers("/user/signup").permitAll() // 直リンクOK
-                .mvcMatchers("/user/signup/rest").permitAll() // 直リンクOK
+                .mvcMatchers("/user/signup").hasAuthority("ROLE_ADMIN") // 直リンクOK
+                .mvcMatchers("/user/signup/rest").hasAuthority("ROLE_ADMIN") // 直リンクOK
                 .mvcMatchers("/admin").hasAuthority("ROLE_ADMIN") // 権限制御
                 .anyRequest().authenticated()
         );

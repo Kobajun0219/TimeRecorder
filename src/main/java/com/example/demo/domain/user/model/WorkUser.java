@@ -7,10 +7,35 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 public class WorkUser {
+//	private int id;
+//	private String userName;
+//	
+//	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+//	private LocalDateTime   startTime;
+//	
+//	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+//	private LocalDateTime   finishTime;
+//	private int  workFlag;
+//	
+////	@Max(value = 100)
+//	@NotNull
+//	private String message;
+//	private String  duration;
+//	private LocalDate  startDate;
+//	private LocalTime  StartTiming;
+//	private LocalTime  FinishTiming;
+	
 	private int id;
 	private String userName;
 	private LocalDateTime   startTime;
@@ -21,9 +46,7 @@ public class WorkUser {
 	private LocalDate  startDate;
 	private LocalTime  StartTiming;
 	private LocalTime  FinishTiming;
-	
-	
-	
+		
 //	if(workUser.getWorkFlag() !=1) {
 //		LocalDateTime  finishTime = workUser.getFinishTime();
 //		LocalDateTime  startTime =  workUser.getStartTime();

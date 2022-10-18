@@ -116,4 +116,10 @@ public class UserServiceImpl implements UserService{
 	public int checkRecord(Integer id){
 		return mapper.checkRecord(id);
 	}
+	
+	/** 退勤時間を記録 */
+	@Override
+	public void UpdateRecord(int id, LocalDateTime startTime, LocalDateTime finishTime, String message) {
+		mapper.UpdateRecord(id, startTime, finishTime, message);
+	};
 }
